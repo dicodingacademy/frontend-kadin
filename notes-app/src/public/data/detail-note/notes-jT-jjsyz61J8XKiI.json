@@ -1,0 +1,14 @@
+{
+  "status": "success",
+  "message": "Note retrieved",
+  "data": {
+    "note": {
+      "id": "notes-jT-jjsyz61J8XKiI",
+      "title": "Welcome to Notes, John Doe!",
+      "body": "This is your first note. You can archive it, delete it, or create new ones.",
+      "createdAt": "2022-07-28T10:03:12.594Z",
+      "archived": false,
+      "owner": "user-l-wposXQYGosf0ZA"
+    }
+  }
+}
