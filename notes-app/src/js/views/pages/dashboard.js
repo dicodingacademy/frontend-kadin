@@ -39,7 +39,7 @@ const Dashboard = {
     // Populate notes list with note item template
     notes.data.forEach((note) => {
       containerEl.innerHTML += `
-        <div class="col">
+        <div class="col-12">
           ${noteItemTemplate(note)}
         </div>
       `;
@@ -75,4 +75,3 @@ const Dashboard = {
 };
 
 export default Dashboard;
-
