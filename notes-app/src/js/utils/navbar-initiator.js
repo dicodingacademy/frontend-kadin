@@ -1,12 +1,19 @@
+import AuthApi from '../networks/auth-api';
 import {
   authenticatedNavListTemplate,
   unauthenticatedNavListTemplate,
 } from '../views/templates/template-creator';
 
 const NavbarInitiator = {
-  renderAuthenticatedNavList(navListContainer) {
-    navListContainer.innerHTML = authenticatedNavListTemplate();
-    this._initialUnauthListener();
+  async renderAuthenticatedNavList(navListContainer) {
+    try {
+      const response = await AuthApi.getUserInfo();
+
+      navListContainer.innerHTML = authenticatedNavListTemplate(response.data);
+      this._initialUnauthListener();
+    } catch (error) {
+      console.log(error);
+    }
   },
 
   _initialUnauthListener() {
@@ -15,7 +22,7 @@ const NavbarInitiator = {
       event.preventDefault();
 
       try {
-        await AuthApi.logout();
+        const response = await AuthApi.logout();
         window.location.hash = '#/login';
       } catch (error) {
         console.error(error);

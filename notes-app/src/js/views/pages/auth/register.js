@@ -19,12 +19,17 @@ const Register = {
               </div>
               <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password">
+                <input type="password" class="form-control" id="password" minlength="6">
               </div>
 
               <div class="mb-3 text-end">
                 <button class="btn btn-primary">Submit</button>
               </div>
+
+              <p class="mt-3 text-center">
+                Sudah punya akun?
+                <a href="#/login">Masuk di sini</a>
+              </p>
             </form>
           </div>
         </div>
@@ -44,9 +49,10 @@ const Register = {
       event.preventDefault();
 
       try {
-        const registerForm = this._getRegisterForm();
-        await AuthApi.register(registerForm);
+        const registerForm = this._getRegisterFormData();
+        const response = await AuthApi.register(registerForm);
 
+        window.alert(response.message);
         window.location.hash = '#/dashboard';
       } catch (error) {
         console.error(error);
@@ -54,7 +60,7 @@ const Register = {
     });
   },
 
-  _getRegisterForm() {
+  _getRegisterFormData() {
     const name = document.getElementById('name');
     const email = document.getElementById('email');
     const password = document.getElementById('password');

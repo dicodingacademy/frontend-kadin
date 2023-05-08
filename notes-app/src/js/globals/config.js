@@ -1,9 +1,7 @@
 const CONFIG = {
-  BEARER_TOKEN: 'YOUR_BEARER_TOKEN',
+  ENDPOINT: 'https://notes-api.idcamp.dicoding.dev/v1/',
 
-  DEFAULT_LANGUAGE: 'en-us',
-  CACHE_NAME: 'NotesApp-V1',
-
+  // Auth
   USER_TOKEN: 'user-token',
 
   // IndexedDB

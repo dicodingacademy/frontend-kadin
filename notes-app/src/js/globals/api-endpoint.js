@@ -1,12 +1,16 @@
-const API_ENDPOINT = {
-  REGISTER: `/register`,
-  LOGIN: `/login`,
+import CONFIG from './config';
 
-  GET_ALL_NOTES: `/data/all.json`,
-  GET_NOTE_BY_ID: (id) => `/data/detail-note/${id}.json`,
-  STORE_NOTE: `store`,
-  UPDATE_NOTE: (id) => `update/${id}`,
-  DELETE_NOTE: (id) => `/data/deleted-note.json`,
+const API_ENDPOINT = {
+  // Auth
+  REGISTER: `${CONFIG.ENDPOINT}/register`,
+  LOGIN: `${CONFIG.ENDPOINT}/login`,
+  GET_USER_INFO: `${CONFIG.ENDPOINT}/users/me`,
+
+  // Notes
+  GET_ALL_NOTES: `${CONFIG.ENDPOINT}/notes`,
+  GET_NOTE_BY_ID: (id) => `${CONFIG.ENDPOINT}/notes/${id}`,
+  STORE_NOTE: `${CONFIG.ENDPOINT}/notes`,
+  DELETE_NOTE: (id) => `${CONFIG.ENDPOINT}/notes/${id}`,
 };
 
 export default API_ENDPOINT;

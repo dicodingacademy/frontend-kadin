@@ -15,14 +15,11 @@ class App {
     CheckAuth.observeLoginState(() => {
       const token = AuthApi.getUserToken(CONFIG.USER_TOKEN);
 
-      // if (token) {
-      //   NavbarInitiator.renderAuthenticatedNavList(this._navListContainer);
-      // } else {
-      //   NavbarInitiator.renderUnauthenticatedNavList(this._navListContainer);
-      // }
-
-      // Temporary
-      NavbarInitiator.renderAuthenticatedNavList(this._navListContainer);
+      if (token) {
+        NavbarInitiator.renderAuthenticatedNavList(this._navListContainer);
+      } else {
+        NavbarInitiator.renderUnauthenticatedNavList(this._navListContainer);
+      }
     });
 
     const url = UrlParser.parseActiveUrlWithCombiner();

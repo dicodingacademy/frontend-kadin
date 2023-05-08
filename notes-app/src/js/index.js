@@ -3,7 +3,6 @@ import '../scss/main.scss';
 
 import App from './views/app';
 import * as bootstrap from 'bootstrap';
-// import swRegister from './utils/sw-register';
 
 const app = new App({
   content: document.getElementById('mainContent'),
@@ -16,6 +15,4 @@ window.addEventListener('hashchange', () => {
 
 window.addEventListener('load', async () => {
   app.renderPage();
-
-  // await swRegister();
 });

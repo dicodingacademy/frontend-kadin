@@ -8,7 +8,6 @@ const Create = {
 
         <div class="row justify-content-start">
           <div class="col-12 col-sm-10 col-md-8 col-xl-6">
-
             <form id="createNoteForm">
               <div class="mb-3">
                 <label for="titleNote" class="form-label">Judul</label>
@@ -30,7 +29,7 @@ const Create = {
   },
 
   async afterRender() {
-    console.log('create');
+    console.log('create page');
 
     this._initialListener();
   },
@@ -41,9 +40,10 @@ const Create = {
       event.preventDefault();
 
       try {
-        const note = this._getNoteFromForm();
-        await NotesApi.store(note);
+        const note = this._getNoteFormData();
+        const response = await NotesApi.store(note);
 
+        window.alert(response.message);
         window.location.hash = '#/dashboard';
       } catch (error) {
         console.error(error);
@@ -51,7 +51,7 @@ const Create = {
     });
   },
 
-  _getNoteFromForm() {
+  _getNoteFormData() {
     const titleNote = document.getElementById('titleNote');
     const bodyNote = document.getElementById('bodyNote');
 

@@ -9,18 +9,20 @@ const CheckAuth = {
       throw new Error('Parameter navbarCallback should be callback function');
     }
 
+    // Check if user is on auth page
     const isOnAuthPage = this._isOnAuthPage(this.excludeUrl);
     const token = AuthApi.getUserToken(CONFIG.USER_TOKEN);
 
-    // if (token) {
-    //   if (isOnAuthPage) {
-    //     window.location.hash = '#/dashboard';
-    //   }
-    // } else {
-    //   if (!isOnAuthPage) {
-    //     window.location.hash = '#/login';
-    //   }
-    // }
+    // If user has token and on auth page, redirect to dashboard page
+    if (token) {
+      if (isOnAuthPage) {
+        window.location.hash = '#/dashboard';
+      }
+    } else {
+      if (!isOnAuthPage) {
+        window.location.hash = '#/login';
+      }
+    }
 
     navbarCallback();
   },
