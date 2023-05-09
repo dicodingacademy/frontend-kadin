@@ -1,5 +1,11 @@
+import BookmarkNotesIdb from '../../data/bookmark-notes-idb';
 import NotesApi from '../../networks/notes-api';
-import { noteItemTemplate } from '../templates/template-creator';
+import {
+  createBookmarkButtonTemplate,
+  createNoteListEmptyTemplate,
+  createRemoveBookmarkButtonTemplate,
+  noteItemTemplate,
+} from '../templates/template-creator';
 
 const Dashboard = {
   async render() {
@@ -19,28 +25,40 @@ const Dashboard = {
   },
 
   async _initialData() {
-    const notes = await NotesApi.getAll();
-    console.log(notes.message);
+    // Get all bookmarked notes data from indexedDB
+    const allBookmarkedNotes = await BookmarkNotesIdb.getAllBookmarkedNotes();
 
-    // Get notesList element
+    // Get all notes data from API
+    const notes = await NotesApi.getAll();
+
+    // get notes list container element
     const notesListEl = document.getElementById('notesList');
 
     // Check if notes data is empty
     if (!notes.data.length) {
-      return this._populateNotesListEmpty(notesListEl, notes);
+      return this._populateNotesListEmpty(notesListEl);
     }
 
-    this._populateNotesList(notesListEl, notes);
+    this._populateNotesList(notesListEl, notes, allBookmarkedNotes);
   },
 
-  _populateNotesList(containerEl, notes) {
+  _populateNotesList(containerEl, notes, allBookmarkedNotes) {
     containerEl.innerHTML = '';
 
     // Populate notes list with note item template
     notes.data.forEach((note) => {
+      // Check if note is bookmarked
+      const isBookmarked = allBookmarkedNotes.find(
+        (bookmarkedNote) => bookmarkedNote.id === note.id,
+      );
+
+      const bookmarkButton = isBookmarked
+        ? createRemoveBookmarkButtonTemplate(note.id)
+        : createBookmarkButtonTemplate(note.id);
+
       containerEl.innerHTML += `
         <div class="col-12">
-          ${noteItemTemplate(note)}
+          ${noteItemTemplate(note, bookmarkButton)}
         </div>
       `;
     });
@@ -60,17 +78,41 @@ const Dashboard = {
         }
       });
     });
+
+    // Add event listener to delete button for each note item
+    containerEl.querySelectorAll(`#bookmarkButton`).forEach((el) => {
+      el.addEventListener('click', async (event) => {
+        const noteId = event.target.dataset.id;
+
+        try {
+          const note = await NotesApi.getById(noteId);
+          await BookmarkNotesIdb.putBookmark(note.data);
+
+          this._initialData();
+        } catch (error) {
+          console.log(error);
+        }
+      });
+    });
+
+    // Add event listener to delete button for each note item
+    containerEl.querySelectorAll(`#removeBookmarkButton`).forEach((el) => {
+      el.addEventListener('click', async (event) => {
+        const noteId = event.target.dataset.id;
+
+        try {
+          await BookmarkNotesIdb.deleteBookmark(noteId);
+
+          this._initialData();
+        } catch (error) {
+          console.log(error);
+        }
+      });
+    });
   },
 
-  _populateNotesListEmpty(containerEl, notes) {
-    containerEl.innerHTML = '';
-    containerEl.innerHTML = `
-      <div class="col-12">
-        <div class="text-center p-5">
-          Tidak ada catatan tersedia.
-        </div>
-      </div>
-    `;
+  _populateNotesListEmpty(containerEl) {
+    containerEl.innerHTML = createNoteListEmptyTemplate();
   },
 };
 

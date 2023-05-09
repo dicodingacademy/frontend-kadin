@@ -17,6 +17,9 @@ const authenticatedNavListTemplate = (userInfo) => `
       <a class="nav-link" href="#/">Beranda</a>
     </li>
     <li class="nav-item">
+      <a class="nav-link" href="#/bookmark">Bookmark</a>
+    </li>
+    <li class="nav-item">
       <a class="nav-link" href="#/note/create">Tambah</a>
     </li>
     <li id="userLoggedMenu" class="nav-item dropdown">
@@ -45,13 +48,15 @@ const authenticatedNavListTemplate = (userInfo) => `
   </ul>
 `;
 
-const noteItemTemplate = (note) => `
+const noteItemTemplate = (note, bookmarkButton) => `
   <div class="card h-100">
     <div class="card-body">
       <h5 class="card-title">${note.title}</h5>
+      <span class="text-muted">${note.owner}</span> | 
       <span class="text-muted">${convertToFormattedDate(note.createdAt)}</span>
       <p class="card-text">${note.body}</p>
       <div class="mt-3 d-flex gap-2 justify-content-end align-items-end">
+        ${bookmarkButton}
         <button 
           id="deleteNoteButton" 
           data-id="${note.id}" 
@@ -62,8 +67,56 @@ const noteItemTemplate = (note) => `
   </div>
 `;
 
+const createNoteListEmptyTemplate = () => {
+  return `
+    <div class="col-12">
+      <div class="text-center p-5">
+        Tidak ada catatan tersedia.
+      </div>
+    </div>
+  `;
+};
+
+const bookmarkNoteItemTemplate = (note, bookmarkButton) => `
+  <div class="card h-100">
+    <div class="card-body">
+      <h5 class="card-title">${note.title}</h5>
+      <span class="text-muted">${note.owner}</span> | 
+      <span class="text-muted">${convertToFormattedDate(note.createdAt)}</span>
+      <p class="card-text">${note.body}</p>
+      <div class="mt-3 d-flex gap-2 justify-content-end align-items-end">
+        ${bookmarkButton}
+      </div>
+    </div>
+  </div>
+`;
+
+const createBookmarkButtonTemplate = (noteId) => {
+  return `
+    <button
+      id="bookmarkButton"
+      class="btn btn-primary"
+      data-id="${noteId}"
+    >Bookmark</button>
+  `;
+};
+
+const createRemoveBookmarkButtonTemplate = (noteId) => {
+  return `
+    <button
+      id="removeBookmarkButton"
+      class="btn btn-danger"
+      data-id="${noteId}"
+    >Remove Bookmark</button>
+  `;
+};
+
 export {
-  noteItemTemplate,
   authenticatedNavListTemplate,
   unauthenticatedNavListTemplate,
+  noteItemTemplate,
+  bookmarkNoteItemTemplate,
+  createNoteListEmptyTemplate,
+  createBookmarkButtonTemplate,
+  createRemoveBookmarkButtonTemplate,
 };

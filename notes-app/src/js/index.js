@@ -1,7 +1,8 @@
 // Import our custom CSS
 import '../scss/main.scss';
-import swRegister from './utils/sw-register';
 
+// Import all of our dependencies
+import swRegister from './utils/sw-register';
 import App from './views/app';
 import * as bootstrap from 'bootstrap';
 
