@@ -1,3 +1,5 @@
+import { recognize } from 'tesseract.js';
+
 export const convertToFormattedDate = (date) => {
   const options = {
     weekday: 'long',
@@ -20,4 +22,13 @@ export const convertUrlB64ToUint8Array = (base64String) => {
     outputArray[i] = rawData.charCodeAt(i);
   }
   return outputArray;
+};
+
+export const recognizePicture = async ({ photo, lang }) => {
+  const {
+    data: { text },
+  } = await recognize(photo, lang);
+  console.log(text);
+
+  return text;
 };
