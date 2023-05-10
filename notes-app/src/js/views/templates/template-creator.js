@@ -49,6 +49,7 @@ const noteItemTemplate = (note) => `
   <div class="card h-100">
     <div class="card-body">
       <h5 class="card-title">${note.title}</h5>
+      <span class="text-muted">${note.owner}</span> | 
       <span class="text-muted">${convertToFormattedDate(note.createdAt)}</span>
       <p class="card-text">${note.body}</p>
       <div class="mt-3 d-flex gap-2 justify-content-end align-items-end">
@@ -62,8 +63,19 @@ const noteItemTemplate = (note) => `
   </div>
 `;
 
+const createNoteListEmptyTemplate = () => {
+  return `
+    <div class="col-12">
+      <div class="text-center p-5">
+        Tidak ada catatan tersedia.
+      </div>
+    </div>
+  `;
+};
+
 export {
-  noteItemTemplate,
   authenticatedNavListTemplate,
   unauthenticatedNavListTemplate,
+  noteItemTemplate,
+  createNoteListEmptyTemplate,
 };
