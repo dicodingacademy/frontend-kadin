@@ -1,3 +1,5 @@
+import { isMobileOrTabletDevice } from './utils';
+
 const CameraHelper = {
   width: 0,
   height: 0,
@@ -59,7 +61,15 @@ const CameraHelper = {
   async getCameraStream() {
     if (!this.isMediaDevicesAvailable()) return;
 
-    return await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+    let facingMode = 'user';
+    if (isMobileOrTabletDevice()) {
+      facingMode = { exact: 'environment' };
+    }
+
+    return await navigator.mediaDevices.getUserMedia({
+      video: { facingMode },
+      audio: false,
+    });
   },
 
   getBlankPhoto() {

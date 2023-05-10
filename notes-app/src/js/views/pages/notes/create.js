@@ -52,7 +52,7 @@ const Create = {
                 <p>Camera:</p>
                 <video id="videoCamera">Video stream not available.</video>
                 <div id="cameraTools" class="d-flex justify-content-center mt-2">
-                  <button type="button" id="takePictureBtn" class="btn btn-light">Text Picture</button>
+                  <button type="button" id="takePictureBtn" class="btn btn-light">Take Picture</button>
                 </div>
               </div>
               <canvas id="canvasCamera" class="d-none"></canvas>
@@ -133,7 +133,7 @@ const Create = {
     const getTextFromPictureBtn = document.getElementById('getTextFromPictureBtn');
     getTextFromPictureBtn.addEventListener('click', async (event) => {
       if (this._picture) {
-        this._bodyNote.value = await recognizePicture({ photo: this._picture, lang: 'eng' });
+        this._bodyNote.value = await recognizePicture({ photo: this._picture });
         this._cameraModal.hide();
       }
     });

@@ -8,7 +8,7 @@ const swRegister = async () => {
   }
 
   try {
-    const wb = new Workbox('/sw.bundle.js');
+    const wb = new Workbox('sw.bundle.js');
     const registration = await wb.register();
 
     // Initialize web push notification after service worker activated successfully
