@@ -1,5 +1,5 @@
 import NotesApi from '../../networks/notes-api';
-import { noteItemTemplate } from '../templates/template-creator';
+import { createNoteListEmptyTemplate, noteItemTemplate } from '../templates/template-creator';
 
 const Dashboard = {
   async render() {
@@ -19,15 +19,15 @@ const Dashboard = {
   },
 
   async _initialData() {
+    // Get all notes data from API
     const notes = await NotesApi.getAll();
-    console.log(notes.message);
 
     // Get notesList element
     const notesListEl = document.getElementById('notesList');
 
     // Check if notes data is empty
     if (!notes.data.length) {
-      return this._populateNotesListEmpty(notesListEl, notes);
+      return this._populateNotesListEmpty(notesListEl);
     }
 
     this._populateNotesList(notesListEl, notes);
@@ -39,7 +39,7 @@ const Dashboard = {
     // Populate notes list with note item template
     notes.data.forEach((note) => {
       containerEl.innerHTML += `
-        <div class="col">
+        <div class="col-12">
           ${noteItemTemplate(note)}
         </div>
       `;
@@ -62,17 +62,9 @@ const Dashboard = {
     });
   },
 
-  _populateNotesListEmpty(containerEl, notes) {
-    containerEl.innerHTML = '';
-    containerEl.innerHTML = `
-      <div class="col-12">
-        <div class="text-center p-5">
-          Tidak ada catatan tersedia.
-        </div>
-      </div>
-    `;
+  _populateNotesListEmpty(containerEl) {
+    containerEl.innerHTML = createNoteListEmptyTemplate();
   },
 };
 
 export default Dashboard;
-
