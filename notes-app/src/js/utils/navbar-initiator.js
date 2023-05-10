@@ -23,6 +23,7 @@ const NavbarInitiator = {
 
       try {
         const response = await AuthApi.logout();
+
         window.location.hash = '#/login';
       } catch (error) {
         console.error(error);

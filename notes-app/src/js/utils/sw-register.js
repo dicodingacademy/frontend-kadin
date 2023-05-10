@@ -8,7 +8,7 @@ const swRegister = async () => {
 
   try {
     const wb = new Workbox('/sw.bundle.js');
-    await wb.register();
+    const registration = await wb.register();
 
     console.log('Service worker registered');
   } catch (error) {
