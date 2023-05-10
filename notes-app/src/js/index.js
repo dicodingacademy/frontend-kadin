@@ -6,7 +6,7 @@ import * as bootstrap from 'bootstrap';
 
 const app = new App({
   content: document.getElementById('mainContent'),
-  navListContainer: document.getElementById('navListContainer'),
+  navListContainer: document.querySelectorAll('#navListContainer, #navListOffcanvas'),
 });
 
 window.addEventListener('hashchange', () => {

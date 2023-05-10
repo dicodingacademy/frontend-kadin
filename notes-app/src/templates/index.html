@@ -22,14 +22,37 @@
       <div class="container">
         <span class="navbar-brand">Notes App</span>
 
-        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navListContainer">
+        <button
+          type="button"
+          class="navbar-toggler"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasNavbar"
+        >
           <span class="navbar-toggler-icon"></span>
         </button>
 
+        <!-- Navlist -->
         <div
           id="navListContainer"
           class="collapse navbar-collapse justify-content-end align-items-center"
         ></div>
+
+        <!-- Drawer -->
+        <div
+          id="offcanvasNavbar"
+          class="d-block d-md-none offcanvas offcanvas-start"
+          data-bs-scroll="true"
+          aria-labelledby="offcanvasNavbar"
+          tabindex="-1"
+        >
+          <div class="offcanvas-header">
+            <span class="offcanvas-title navbar-brand" id="offcanvasNavbar">Notes App</span>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+          </div>
+          <div class="offcanvas-body">
+            <div id="navListOffcanvas"></div>
+          </div>
+        </div>
       </div>
     </nav>
 

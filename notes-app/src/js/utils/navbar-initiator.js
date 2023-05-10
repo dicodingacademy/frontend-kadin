@@ -5,11 +5,13 @@ import {
 } from '../views/templates/template-creator';
 
 const NavbarInitiator = {
-  async renderAuthenticatedNavList(navListContainer) {
+  async renderAuthenticatedNavList(navListContainers) {
     try {
       const response = await AuthApi.getUserInfo();
 
-      navListContainer.innerHTML = authenticatedNavListTemplate(response.data);
+      navListContainers.forEach((el) => {
+        el.innerHTML = authenticatedNavListTemplate(response.data);
+      });
       this._initialUnauthListener();
     } catch (error) {
       console.log(error);
@@ -30,8 +32,10 @@ const NavbarInitiator = {
     });
   },
 
-  renderUnauthenticatedNavList(navListContainer) {
-    navListContainer.innerHTML = unauthenticatedNavListTemplate();
+  renderUnauthenticatedNavList(navListContainers) {
+    navListContainers.forEach((el) => {
+      el.innerHTML = unauthenticatedNavListTemplate();
+    });
   },
 };
 
