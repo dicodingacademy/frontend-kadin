@@ -11,7 +11,7 @@ const Bookmark = {
       <div class="content">
         <h2>Your Bookmark Notes</h2>
 
-        <div id="notes" class="notes"></div>
+        <div id="notesList" class="mt-2 row justify-content-center gy-4"></div>
       </div>
     `;
   },
@@ -24,7 +24,7 @@ const Bookmark = {
 
   async _initialData() {
     const notes = await BookmarkNotesIdb.getAllBookmarkedNotes();
-    const notesListEl = document.getElementById('notes');
+    const notesListEl = document.getElementById('notesList');
 
     // Check if notes data is empty
     if (!notes.length) {
