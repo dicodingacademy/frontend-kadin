@@ -1,64 +1,44 @@
 const NotificationHelper = {
-  sendNotification({ title, options }) {
-    if (!this._checkAvailability()) {
-      console.log('Notification not supported in this browser');
-      return;
-    }
-
-    if (!this._checkPermission()) {
-      console.log('User did not yet granted permission');
-      this._requestPermission();
-      return;
-    }
-
-    this._showNotification({ title, options });
-  },
-
-  _checkAvailability() {
+  isNotificationSupported() {
     return 'Notification' in window;
   },
 
-  _checkPermission() {
+  isNotificationPermissionGranted() {
     return Notification.permission === 'granted';
   },
 
-  async _requestPermission() {
+  async requestPermission() {
     const status = await Notification.requestPermission();
 
     if (status === 'denied') {
-      console.log('Notification Denied');
+      window.alert('Notification permission has been denied');
     }
 
     if (status === 'default') {
-      console.log('Permission closed');
+      window.alert('Notification permission has been closed');
     }
   },
 
-  async _showNotification({ title, options }) {
-    const serviceWorkerRegistration = await navigator.serviceWorker.ready;
-    serviceWorkerRegistration.showNotification(title, options);
-  },
-
-  async _isNotificationReady() {
-    if (!this._checkAvailability()) {
-      console.log('Notification not supported in this browser');
+  async isNotificationReady() {
+    if (!this.isNotificationSupported()) {
+      window.alert('Notification not supported in this browser');
       return false;
     }
 
-    if (!this._checkPermission()) {
-      console.log('User did not granted the notification permission yet');
-      const status = await Notification.requestPermission();
+    if (!this.isNotificationPermissionGranted()) {
+      window.alert('User did not granted the notification permission yet');
 
+      const status = Notification.permission;
       if (status === 'denied') {
         window.alert(
-          'Cannot subscribe to push message because the status of notification permission is denied',
+          "User didn't give the notification permission. Another word, notification has been denied by user. If you want to enable it, you can change the notification permission on your browser setting",
         );
         return false;
       }
 
       if (status === 'default') {
         window.alert(
-          'Cannot subscribe to push message because the status of notification permission is ignored',
+          'The notification permission has been ignored by user. If you want to enable it, you can change the notification permission on your browser setting',
         );
         return false;
       }

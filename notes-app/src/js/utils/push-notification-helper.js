@@ -27,7 +27,10 @@ const PushNotificationHelper = {
   },
 
   async _initialListener() {
-    this._subscribeButton.addEventListener('click', (event) => {
+    this._subscribeButton.addEventListener('click', async (event) => {
+      // Request permission
+      await NotificationHelper.requestPermission();
+
       this._subscribePushMessage(event);
     });
 
@@ -48,7 +51,7 @@ const PushNotificationHelper = {
       return;
     }
 
-    if (!(await NotificationHelper._isNotificationReady())) {
+    if (!(await NotificationHelper.isNotificationReady())) {
       console.log("Notification isn't available");
       return;
     }
