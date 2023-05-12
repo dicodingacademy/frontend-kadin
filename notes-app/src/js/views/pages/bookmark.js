@@ -41,10 +41,10 @@ const Bookmark = {
       const bookmarkButton = createRemoveBookmarkButtonTemplate(note.id);
 
       containerEl.innerHTML += `
-        <div class="col-12">
-          ${bookmarkNoteItemTemplate(note, bookmarkButton)}
-        </div>
-      `;
+      <div class="col-12">
+        ${bookmarkNoteItemTemplate(note, bookmarkButton)}
+      </div>
+    `;
     });
 
     // Add event listener to delete button for each note item

@@ -32,6 +32,15 @@ export const recognizePicture = async ({ photo, lang = 'eng' }) => {
   return text;
 };
 
+export const recognizePictureWithVision = async ({ base64Image }) => {
+  const response = await fetch('https://ocr-e77n4h2n5a-uc.a.run.app', {
+    method: 'POST',
+    body: base64Image,
+  });
+
+  return response.json();
+};
+
 /**
  * Reference: https://stackoverflow.com/questions/11381673/detecting-a-mobile-browser
  */
