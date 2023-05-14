@@ -133,10 +133,9 @@ const Create = {
     const getTextFromPictureBtn = document.getElementById('getTextFromPictureBtn');
     getTextFromPictureBtn.addEventListener('click', async (event) => {
       if (this._picture) {
-        const response = await recognizePictureWithVision({ photo: this._picture });
-        console.log('this._picture', this._picture);
-        console.log('response', response);
-        this._bodyNote.value = response;
+        const { text } = await recognizePictureWithVision({ photo: this._picture });
+
+        this._bodyNote.value = text;
         this._cameraModal.hide();
       }
     });

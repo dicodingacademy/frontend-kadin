@@ -38,7 +38,7 @@ export const recognizePictureWithVision = async ({ base64Image }) => {
     body: base64Image,
   });
 
-  return response.json();
+  return await response.json();
 };
 
 /**
